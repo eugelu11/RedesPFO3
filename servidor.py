@@ -11,9 +11,18 @@ while True:
     conn, address = server.accept()
     print(f"Cliente conectado desde {address}")
 
-    data = conn.recv(1024)
-    print(f"Recibido: {data.decode()}")
+    data = conn.recv(1024).decode()
+    partes = data.split(":")
+    comando = partes[0]
 
-    conn.send("Hola desde el servidor!".encode())
+    if comando == "login":
+        usuario = partes[1]
+        clave = partes[2]
+        conn.send(f"Procesando login de {usuario}".encode())
+    elif comando == "registro":
+        usuario = partes[1]
+        conn.send(f"Registrando a {usuario}".encode())
+    else:
+        conn.send("Comando desconocido".encode())
 
     conn.close()
