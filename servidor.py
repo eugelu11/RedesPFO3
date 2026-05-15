@@ -4,16 +4,16 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 server.bind(("localhost", 9999))
 
-server.listen(1)
+server.listen(5)
 print("Servidor esperando conexión...")
 
-conn, address = server.accept()
-print(f"Cliente conectado desde {address}")
+while True:
+    conn, address = server.accept()
+    print(f"Cliente conectado desde {address}")
 
-data = conn.recv(1024)
-print(f"Recibido: {data.decode()}")
+    data = conn.recv(1024)
+    print(f"Recibido: {data.decode()}")
 
-conn.send("Hola desde el servidor!".encode())
+    conn.send("Hola desde el servidor!".encode())
 
-conn.close()
-server.close()
+    conn.close()
