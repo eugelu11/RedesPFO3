@@ -25,7 +25,7 @@ def registrar_usuario(usuario, contraseña):
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-server.bind(("localhost", 9999))
+server.bind(("localhost", 8888))
 
 server.listen(5)
 print("Servidor esperando conexión...")
