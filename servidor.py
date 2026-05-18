@@ -1,5 +1,6 @@
 import socket
 import sqlite3
+from concurrent.futures import ThreadPoolExecutor
 
 def verificar_login(usuario, contraseña):
     conn_db=sqlite3.connect("miBBDD.db")
@@ -21,7 +22,7 @@ def registrar_usuario(usuario, contraseña):
         return False
     finally:
         conn_db.close()
-        
+
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 server.bind(("localhost", 9999))
@@ -29,11 +30,8 @@ server.bind(("localhost", 9999))
 server.listen(5)
 print("Servidor esperando conexión...")
 
-while True:
-    conn, address = server.accept()
-    print(f"Cliente conectado desde {address}")
-
-    data = conn.recv(1024).decode()
+def manejar_cliente(conn):
+    data = conn.recv(1024).decode().strip()
     partes = data.split(":")
     comando = partes[0]
 
@@ -53,4 +51,10 @@ while True:
     else:
         conn.send("Comando desconocido".encode())
 
+with ThreadPoolExecutor(max_workers=5) as executor:
+    while True:
+        conn,address=server.accept(
+            print(f"Cliente conectado desde {address}")
+            executor.submit(manejar_cliente, conn)
+        )
     conn.close()
