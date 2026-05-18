@@ -10,7 +10,18 @@ def verificar_login(usuario, contraseña):
     conn_db.close()
     return resultado is not None
 
-
+def registrar_usuario(usuario, contraseña):
+    conn_db = sqlite3.connect("miBBDD.db")
+    cursor = conn_db.cursor()
+    try:
+        cursor.execute("INSERT INTO usuarios (usuario, contraseña) VALUES (?, ?)", (usuario, contraseña))
+        conn_db.commit()
+        return True
+    except sqlite3.IntegrityError:
+        return False
+    finally:
+        conn_db.close()
+        
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 server.bind(("localhost", 9999))
