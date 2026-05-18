@@ -33,13 +33,12 @@ while True:
             conn.send("Login exitoso".encode())
         else: conn.send("Usuario o contraseña incorrectos".encode())
     elif comando == "registro":
-        elif comando == "registro":
-    usuario = partes[1]
-    clave = partes[2]
-    if registrar_usuario(usuario, clave):
-        conn.send("Usuario registrado exitosamente".encode())
-    elif
-        conn.send("El usuario ya existe".encode())
+        usuario = partes[1]
+        contraseña = partes[2]
+        if registrar_usuario(usuario, contraseña):
+            conn.send("Usuario registrado exitosamente".encode())
+        else:
+            conn.send("El usuario ya existe".encode())
     else:
         conn.send("Comando desconocido".encode())
 
