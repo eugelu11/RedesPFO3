@@ -51,10 +51,11 @@ def manejar_cliente(conn):
     else:
         conn.send("Comando desconocido".encode())
 
+    conn.close()
+
 with ThreadPoolExecutor(max_workers=5) as executor:
     while True:
-        conn,address=server.accept()
+        conn, address = server.accept()
         print(f"Cliente conectado desde {address}")
         executor.submit(manejar_cliente, conn)
-        
-    conn.close()
+    
