@@ -48,6 +48,9 @@ def manejar_cliente(conn):
             conn.send("Usuario registrado exitosamente".encode())
         else:
             conn.send("El usuario ya existe".encode())
+    elif comando == "tareas":
+        conn.send("Bienvenida Euge- estas son tus tareas".encode())
+
     else:
         conn.send("Comando desconocido".encode())
 
