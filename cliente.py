@@ -10,7 +10,7 @@ usuario= input("Usuario: ")
 contraseña=input("Contraseña: ")
 client.send(f"{accion}:{usuario}:{contraseña}".encode())
 
-respuesta = response.decode()
+respuesta = client.recv(1024).decode()
 print(f"Respuesta: {respuesta}")
 
 if respuesta == "Login exitoso":
