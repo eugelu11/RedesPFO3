@@ -11,6 +11,7 @@ arquitectura distribuida usando sockets TCP. Incluye:
 - Diagrama del sistema con RabbitMQ, PostgreSQL y S3
 
 ## Estructura del proyecto
+```
 /proyecto
 │── servidor.py       (worker 1 - puerto 9999)
 │── servidor2.py      (worker 2 - puerto 9998)
@@ -19,6 +20,7 @@ arquitectura distribuida usando sockets TCP. Incluye:
 │── crear_db.py       (inicializa la base de datos)
 │── miBBDD.db         (se crea con crear_db.py)
 │── README.md
+```
 
 
 ## Cómo ejecutar
@@ -35,6 +37,15 @@ El programa va a preguntar:
 Usuario:
 Contraseña:
 
+Después del login exitoso va a dar la opción.
+¿Qué querés hacer? (tareas/salir): 
+
+Y al elegir tareas se va a mostar un mensaje corto sobre las tareas.
+
+## Arquitectura
+Las solicitudes del cliente llegan al balanceador (puerto 8888), 
+que las redirige en Round Robin a uno de los dos workers. 
+Cada worker maneja hasta 5 conexiones simultáneas mediante un pool de hilos.
 
 ## Diagrama:
 
