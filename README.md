@@ -1,12 +1,40 @@
 # PFO 3-Eugenia Lucchelli
 
+## Descripción
+Este proyecto transforma el sistema de gestión de usuarios de PFO 2 en una 
+arquitectura distribuida usando sockets TCP. Incluye:
+
+- Comunicación cliente-servidor mediante sockets raw (sin HTTP)
+- Balanceador de carga con algoritmo Round Robin
+- Dos servidores worker con pool de hilos (ThreadPoolExecutor)
+- Base de datos SQLite compartida entre workers
+- Diagrama del sistema con RabbitMQ, PostgreSQL y S3
+
+## Estructura del proyecto
+/proyecto
+│── servidor.py       (worker 1 - puerto 9999)
+│── servidor2.py      (worker 2 - puerto 9998)
+│── balanceador.py    (load balancer - puerto 8888)
+│── cliente.py        (cliente de consola)
+│── crear_db.py       (inicializa la base de datos)
+│── miBBDD.db         (se crea con crear_db.py)
+│── README.md
+
+
 ## Cómo ejecutar
 
 1. `py crear_db.py` (solo la primera vez)
-2. Terminal 1: `py servidor.py`
-3. Terminal 2: `py servidor2.py`
-4. Terminal 3: `py balanceador.py`
-5. Terminal 4: `py cliente.py`
+2. Terminal 1: `py servidor.py` (inicia el 1er worker)
+3. Terminal 2: `py servidor2.py` (inicia el 2ndo worker)
+4. Terminal 3: `py balanceador.py` (inicia el balanceador)
+5. Terminal 4: `py cliente.py` (ejecuta el cliente)
+
+## Uso del cliente
+El programa va a preguntar:
+¿Qué querés hacer? (login/registro):
+Usuario:
+Contraseña:
+
 
 ## Diagrama:
 
